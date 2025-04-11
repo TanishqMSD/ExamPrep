@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMitra - {% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="text-xl font-bold">StudyMitra</div>
+                <div class="space-x-4">
+                    <a href="{% url 'home' %}" class="hover:text-blue-200">Home</a>
+                    <a href="{% url 'past_papers' %}" class="hover:text-blue-200">Past Papers</a>
+                    <a href="{% url 'quizzes' %}" class="hover:text-blue-200">Quizzes</a>
+                    <a href="{% url 'progress' %}" class="hover:text-blue-200">Progress</a>
+                    <a href="{% url 'notes' %}" class="hover:text-blue-200">Notes</a>
+                    {% if user.is_authenticated %}
+                        <span class="ml-4">Welcome, {{ user.username }}</span>
+                        <a href="{% url 'logout' %}" class="ml-4 hover:text-blue-200">Logout</a>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="hover:text-blue-200">Login</a>
+                        <a href="{% url 'register' %}" class="ml-4 hover:text-blue-200">Sign Up</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-8">
+        {% if messages %}
+            <div class="mb-4">
+                {% for message in messages %}
+                    <div class="p-4 {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %} rounded">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-8">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>&copy; 2024 StudyMitra. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
