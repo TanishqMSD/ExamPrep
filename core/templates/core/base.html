@@ -12,11 +12,15 @@
             <div class="flex items-center justify-between">
                 <div class="text-xl font-bold">StudyMitra</div>
                 <div class="space-x-4">
-                    <a href="{% url 'home' %}" class="hover:text-blue-200">Home</a>
-                    <a href="{% url 'past_papers' %}" class="hover:text-blue-200">Past Papers</a>
-                    <a href="{% url 'quizzes' %}" class="hover:text-blue-200">Quizzes</a>
-                    <a href="{% url 'progress' %}" class="hover:text-blue-200">Progress</a>
-                    <a href="{% url 'notes' %}" class="hover:text-blue-200">Notes</a>
+                    <a href="/" class="hover:text-blue-200">Home</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'past_papers' %}" class="hover:text-blue-200">Past Papers</a>
+                        <a href="{% url 'quizzes' %}" class="hover:text-blue-200">Quizzes</a>
+                        <a href="{% url 'progress' %}" class="hover:text-blue-200">Progress</a>
+                        <a href="{% url 'notes' %}" class="hover:text-blue-200">Notes</a>
+                    {% endif %}
+                    
+                   
                     {% if user.is_authenticated %}
                         <span class="ml-4">Welcome, {{ user.username }}</span>
                         <a href="{% url 'logout' %}" class="ml-4 hover:text-blue-200">Logout</a>
